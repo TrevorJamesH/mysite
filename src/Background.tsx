@@ -28,11 +28,11 @@ function generateSprites(n: number): Sprites {
 	return new Array(n).fill(generateSprite());
 }
 
-// function move(direction: Direction, distance: number, {x,y}){
-
-// }
-const move = {
-	up: (distance: number, { x, y }) => ({ x, y: y + distance }),
+const movers: Record<Direction, (number: number, coords: Coords) => Coords> = {
+	up: (distance, { x, y }) => ({ x, y: y + distance }),
+	down: (distance, { x, y }) => ({ x, y: y - distance }),
+	left: (distance, { x, y }) => ({ x: x - distance, y }),
+	right: (distance, { x, y }) => ({ x: x + distance, y }),
 };
 
 const Background = (props: any) => {
