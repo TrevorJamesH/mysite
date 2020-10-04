@@ -34,7 +34,7 @@ const Background = (props: IProps) => {
 			sprites.current = sprites.current.map((sprite) => move(sprite));
 			sprites.current.forEach((sprite) => drawSprite(ctx, sprite));
 		}
-	});
+	}, 60);
 
 	const { width, height } = useWindowSize();
 
@@ -80,7 +80,7 @@ function generateSprite({
 	const x = getRandomRange(0, window.innerWidth);
 	const y = getRandomRange(0, window.innerHeight);
 	const direction = directions[getRandomRange(0, directions.length - 1)];
-	const opacity = 0.5;
+	const opacity = 0.2;
 	return { coords: { x, y }, direction, color, speed, size, opacity };
 }
 
@@ -109,7 +109,7 @@ const turns: Record<Direction, Array<Direction>> = {
 };
 
 function maybeTurn(direction: Direction): Direction {
-	if (getRandomRange(0, 20) > 19) {
+	if (getRandomRange(0, 50) === 50) {
 		return turns[direction][getRandomRange(0, turns[direction].length - 1)];
 	}
 	return direction;
@@ -143,7 +143,7 @@ const movers: Record<Direction, Mover> = {
 	},
 };
 
-const shrinkRate = 0.2;
+const shrinkRate = 0.05;
 function updateTail(sprite: Sprite): Sprites {
 	const { tail = [], ...restOfSprite } = sprite;
 	const newTail = [restOfSprite].concat(tail).map((tailNode) => {

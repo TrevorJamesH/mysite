@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 
 /* ===utility functions=== */
 
@@ -8,17 +8,23 @@ export function getRandomRange(min: number, max: number): number {
 
 /* ===custom hooks=== */
 
-export function useAnimation(drawFrame: () => void) {
-	const requestRef = useRef(0);
+export function useAnimation(drawFrame: () => void, fps?: number) {
+	const request = useRef(0);
+	const lastRender = useRef(new Date().getTime());
+
+	const waitTime = useMemo(() => fps && 1000 / fps, [fps]);
 
 	function animate() {
-		drawFrame();
-		requestRef.current = requestAnimationFrame(animate);
+		if (!waitTime || new Date().getTime() - lastRender.current > waitTime) {
+			drawFrame();
+			lastRender.current = new Date().getTime();
+		}
+		request.current = requestAnimationFrame(animate);
 	}
 
 	useEffect(() => {
-		requestRef.current = requestAnimationFrame(animate);
-		return () => cancelAnimationFrame(requestRef.current);
+		request.current = requestAnimationFrame(animate);
+		return () => cancelAnimationFrame(request.current);
 	}, []);
 }
 

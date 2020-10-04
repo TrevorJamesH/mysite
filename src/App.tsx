@@ -1,13 +1,23 @@
 import React from "react";
 import Background from "./Background";
-
+const spriteColors = [
+	"#7CBD5C",
+	"#CF864A",
+	"#C653DC",
+	"#E5B35D",
+	"#3B9EF2",
+	"#25ABB7",
+	"#E84A5F",
+	"#9AA0B3",
+];
 function App() {
 	return (
 		<Background
 			backgroundColor={"#1E2128"}
-			spriteColor={["#7CBD5C", "#CF864A", "#C653DC", "#E5B35D", "#3B9EF2"]}
+			spriteColor={spriteColors}
+			spriteCount={spriteColors.length * 2}
 			spriteSize={10}
-			speed={5}
+			speed={10}
 		/>
 	);
 }
