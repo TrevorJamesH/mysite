@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, Fragment } from "react";
 import { useAnimation, useWindowSize, getRandomRange } from "./utility";
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
 	speed?: number;
 }
 
-const Background = (props: IProps) => {
+const Background: React.FC<IProps> = (props) => {
 	const {
 		backgroundColor = "black",
 		spriteColor: color = "white",
@@ -39,16 +39,21 @@ const Background = (props: IProps) => {
 	const { width, height } = useWindowSize();
 
 	return (
-		<canvas
-			style={{ display: "block" }}
-			ref={canvasRef}
-			width={width}
-			height={height}
-		/>
+		<Fragment>
+			<canvas
+				style={{ position: "fixed" }}
+				ref={canvasRef}
+				width={width}
+				height={height}
+			/>
+			<div style={{ position: "relative", zIndex: 10 }}>{props.children}</div>
+		</Fragment>
 	);
 };
 
-type Direction = "up" | "down" | "left" | "right";
+const directions = ["up", "down", "left", "right"] as const;
+type Direction = typeof directions[number];
+
 interface Coords {
 	x: number;
 	y: number;
@@ -66,7 +71,6 @@ interface Sprite {
 
 type Sprites = Sprite[];
 
-const directions = ["up", "down", "left", "right"] as const;
 const xWays: Array<Direction> = ["left", "right"];
 const yWays: Array<Direction> = ["up", "down"];
 
@@ -143,7 +147,7 @@ const movers: Record<Direction, Mover> = {
 	},
 };
 
-const shrinkRate = 0.05;
+const shrinkRate = 0.005;
 function updateTail(sprite: Sprite): Sprites {
 	const { tail = [], ...restOfSprite } = sprite;
 	const newTail = [restOfSprite].concat(tail).map((tailNode) => {
@@ -152,7 +156,7 @@ function updateTail(sprite: Sprite): Sprites {
 			...tailNode,
 			size,
 			offset,
-			opacity: opacity - shrinkRate * 0.1,
+			opacity: opacity - shrinkRate,
 		};
 	});
 
