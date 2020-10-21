@@ -22,9 +22,24 @@ function App() {
 			spriteSize={10}
 			speed={10}
 		>
-			<Layout>
-				<AboutMe />
-			</Layout>
+			<div
+				style={{
+					display: "grid",
+					gridTemplateColumns: "auto 400px auto",
+					gridTemplateRows: "100px auto 100px",
+					height: "100vh",
+					width: "100vw",
+				}}
+			>
+				<div
+					style={{
+						gridColumn: "2/3",
+						gridRow: "2/3",
+					}}
+				>
+					<AboutMe />
+				</div>
+			</div>
 		</Background>
 	);
 }
