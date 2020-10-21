@@ -88,6 +88,7 @@ function generateSprite({
 	return { coords: { x, y }, direction, color, speed, size, opacity };
 }
 
+// TODO: figure out how to extend this from SpriteParams
 type SpritesParams = {
 	count?: number;
 	color?: string | string[];
