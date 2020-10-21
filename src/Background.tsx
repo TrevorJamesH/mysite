@@ -77,7 +77,7 @@ const yWays: Array<Direction> = ["up", "down"];
 type SpriteParams = Partial<Pick<Sprite, "speed" | "size" | "color">>;
 
 function generateSprite({
-	color = "White",
+	color = "white",
 	size = 10,
 	speed = 10,
 }: SpriteParams = {}): Sprite {

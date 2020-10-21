@@ -15,17 +15,17 @@ const spriteColors = [
 
 function App() {
 	return (
-		<div>
-			<Background
-				backgroundColor={"#1E2128"}
-				spriteColor={spriteColors}
-				spriteCount={spriteColors.length * 2}
-				spriteSize={10}
-				speed={10}
-			>
+		<Background
+			backgroundColor={"#1E2128"}
+			spriteColor={spriteColors}
+			spriteCount={spriteColors.length * 2}
+			spriteSize={10}
+			speed={10}
+		>
+			<Layout>
 				<AboutMe />
-			</Background>
-		</div>
+			</Layout>
+		</Background>
 	);
 }
 
