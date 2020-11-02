@@ -14,16 +14,16 @@ export function useAnimation(drawFrame: () => void, fps?: number) {
 
 	const waitTime = useMemo(() => fps && 1000 / fps, [fps]);
 
-	function animate() {
+	const animate = useRef(() => {
 		if (!waitTime || new Date().getTime() - lastRender.current > waitTime) {
 			drawFrame();
 			lastRender.current = new Date().getTime();
 		}
-		request.current = requestAnimationFrame(animate);
-	}
+		request.current = requestAnimationFrame(animate.current);
+	});
 
 	useEffect(() => {
-		request.current = requestAnimationFrame(animate);
+		request.current = requestAnimationFrame(animate.current);
 		return () => cancelAnimationFrame(request.current);
 	}, []);
 }
