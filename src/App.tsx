@@ -25,8 +25,8 @@ function App() {
 			<div
 				style={{
 					display: "grid",
-					gridTemplateColumns: "auto 400px auto",
-					gridTemplateRows: "100px auto 100px",
+					gridTemplateColumns: "auto 200px auto",
+					gridTemplateRows: "auto 200px auto",
 					height: "100vh",
 					width: "100vw",
 				}}
