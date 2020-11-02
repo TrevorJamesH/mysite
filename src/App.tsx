@@ -1,6 +1,7 @@
 import React from "react";
 import Background from "./Background";
 import AboutMe from "./AboutMe";
+import Links from "./Links";
 
 const spriteColors = [
 	"#7CBD5C",
@@ -35,9 +36,11 @@ function App() {
 					style={{
 						gridColumn: "2/3",
 						gridRow: "2/3",
+						position: "relative",
 					}}
 				>
 					<AboutMe />
+					<Links />
 				</div>
 			</div>
 		</Background>

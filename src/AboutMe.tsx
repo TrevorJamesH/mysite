@@ -16,6 +16,7 @@ const AboutMe = () => {
 				opacity: "75%",
 				padding: "20px",
 				fontFamily: "Roboto",
+				borderRadius: "3px",
 			}}
 		>
 			{aboutMe.map((section) => (
