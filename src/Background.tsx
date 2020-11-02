@@ -46,7 +46,14 @@ const Background: React.FC<IProps> = (props) => {
 				width={width}
 				height={height}
 			/>
-			<div style={{ position: "relative", zIndex: 10 }}>{props.children}</div>
+			<div
+				style={{
+					position: "relative",
+					zIndex: 10,
+				}}
+			>
+				{props.children}
+			</div>
 		</Fragment>
 	);
 };
