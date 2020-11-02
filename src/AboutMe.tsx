@@ -3,7 +3,7 @@ import React from "react";
 const aboutMe = [
 	{
 		header: "I'm Trevor",
-		body: ["I build web systems.", "I'm like React, TypeScript, and GraphQL"],
+		body: ["I build web systems.", "I like React, TypeScript, and GraphQL"],
 	},
 ];
 
@@ -16,6 +16,7 @@ const AboutMe = () => {
 				opacity: "75%",
 				padding: "20px",
 				fontFamily: "Roboto",
+				borderRadius: "3px",
 			}}
 		>
 			{aboutMe.map((section) => (
