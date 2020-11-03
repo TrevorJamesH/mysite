@@ -10,6 +10,7 @@ type Link = {
 	icon: string;
 	url: string;
 	download?: boolean;
+	size?: number;
 };
 
 const links: Link[] = [
@@ -64,7 +65,7 @@ const Links = () => {
 			style={{
 				display: "flex",
 				flexDirection: "row",
-				justifyContent: "space-around",
+				justifyContent: "space-evenly",
 				position: "absolute",
 				bottom: "10px",
 				left: "0px",
