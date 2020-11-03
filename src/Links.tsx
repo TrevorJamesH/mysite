@@ -2,6 +2,8 @@ import React from "react";
 import codewars from "./Icons/codewars.svg";
 import github from "./Icons/github.svg";
 import linkedin from "./Icons/linkedin.svg";
+import resume from "./Icons/resume.svg";
+import stackoverflow from "./Icons/stackoverflow.svg";
 
 type Link = {
 	name: string;
@@ -11,6 +13,13 @@ type Link = {
 };
 
 const links: Link[] = [
+	{
+		name: "resume",
+		icon: resume,
+		url:
+			"/Resume/Trevor_Hewitt_-_Full-Stack_Developer_-_Front-End_Engineer.pdf",
+		download: true,
+	},
 	{
 		name: "linkedin",
 		icon: linkedin,
@@ -27,11 +36,9 @@ const links: Link[] = [
 		url: "https://www.codewars.com/users/TrevorJamesH",
 	},
 	{
-		name: "codewars",
-		icon: codewars,
-		url:
-			"/Resume/Trevor_Hewitt_-_Full-Stack_Developer_-_Front-End_Engineer.pdf",
-		download: true,
+		name: "stackoverflow",
+		icon: stackoverflow,
+		url: "https://stackoverflow.com/users/8658680/trevor-hewitt",
 	},
 ];
 
@@ -43,7 +50,6 @@ const Link: React.FC<Link> = (link) => {
 				src={icon}
 				alt={`${name} logo`}
 				style={{
-					marginLeft: "10px",
 					height: "24px",
 					width: "24px",
 				}}
@@ -58,9 +64,11 @@ const Links = () => {
 			style={{
 				display: "flex",
 				flexDirection: "row",
+				justifyContent: "space-around",
 				position: "absolute",
 				bottom: "10px",
-				right: "10px",
+				left: "0px",
+				width: "100%",
 			}}
 		>
 			{links.map((link) => (
