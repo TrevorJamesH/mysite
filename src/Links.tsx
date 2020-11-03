@@ -7,6 +7,7 @@ type Link = {
 	name: string;
 	icon: string;
 	url: string;
+	download?: boolean;
 };
 
 const links: Link[] = [
@@ -25,12 +26,19 @@ const links: Link[] = [
 		icon: codewars,
 		url: "https://www.codewars.com/users/TrevorJamesH",
 	},
+	{
+		name: "codewars",
+		icon: codewars,
+		url:
+			"/Resume/Trevor_Hewitt_-_Full-Stack_Developer_-_Front-End_Engineer.pdf",
+		download: true,
+	},
 ];
 
 const Link: React.FC<Link> = (link) => {
-	const { name, icon, url } = link;
+	const { name, icon, url, download } = link;
 	return (
-		<a href={url} target="_blank" rel="noopener noreferrer">
+		<a href={url} target="_blank" rel="noopener noreferrer" download={download}>
 			<img
 				src={icon}
 				alt={`${name} logo`}
