@@ -5,7 +5,7 @@ import linkedin from "./Icons/linkedin.svg";
 import resume from "./Icons/resume.svg";
 import stackoverflow from "./Icons/stackoverflow.svg";
 
-type Link = {
+interface ILink {
   name: string;
   icon: string;
   url: string;
@@ -13,7 +13,7 @@ type Link = {
   size?: number;
 };
 
-const links: Link[] = [
+const links: ILink[] = [
   {
     name: "resume",
     icon: resume,
@@ -43,7 +43,7 @@ const links: Link[] = [
   },
 ];
 
-const Link: React.FC<Link> = (link) => {
+const Link: React.FC<ILink> = (link) => {
   const { name, icon, url, download } = link;
   return (
     <a href={url} target="_blank" rel="noopener noreferrer" download={download}>
@@ -59,7 +59,7 @@ const Link: React.FC<Link> = (link) => {
   );
 };
 
-const Links = () => {
+const Links: React.FC<{}> = () => {
   return (
     <div
       style={{
