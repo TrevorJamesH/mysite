@@ -1,9 +1,9 @@
 import React from "react";
-import codewars from "./Icons/codewars.svg";
-import github from "./Icons/github.svg";
-import linkedin from "./Icons/linkedin.svg";
-import resume from "./Icons/resume.svg";
-import stackoverflow from "./Icons/stackoverflow.svg";
+import codewars from "../Icons/codewars.svg";
+import github from "../Icons/github.svg";
+import linkedin from "../Icons/linkedin.svg";
+import resume from "../Icons/resume.svg";
+import stackoverflow from "../Icons/stackoverflow.svg";
 
 type Link = {
   name: string;
