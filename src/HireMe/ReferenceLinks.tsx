@@ -1,11 +1,11 @@
 import React from "react";
-import codewars from "./Icons/codewars.svg";
-import github from "./Icons/github.svg";
-import linkedin from "./Icons/linkedin.svg";
-import resume from "./Icons/resume.svg";
-import stackoverflow from "./Icons/stackoverflow.svg";
+import codewars from "../Icons/codewars.svg";
+import github from "../Icons/github.svg";
+import linkedin from "../Icons/linkedin.svg";
+import resume from "../Icons/resume.svg";
+import stackoverflow from "../Icons/stackoverflow.svg";
 
-interface ILink {
+type Link = {
   name: string;
   icon: string;
   url: string;
@@ -13,7 +13,7 @@ interface ILink {
   size?: number;
 };
 
-const links: ILink[] = [
+const links: Link[] = [
   {
     name: "resume",
     icon: resume,
@@ -43,7 +43,7 @@ const links: ILink[] = [
   },
 ];
 
-const Link: React.FC<ILink> = (link) => {
+const Link: React.FC<Link> = (link) => {
   const { name, icon, url, download } = link;
   return (
     <a href={url} target="_blank" rel="noopener noreferrer" download={download}>
@@ -59,7 +59,7 @@ const Link: React.FC<ILink> = (link) => {
   );
 };
 
-const Links: React.FC<{}> = () => {
+const Links = () => {
   return (
     <div
       style={{

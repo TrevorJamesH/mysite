@@ -1,5 +1,5 @@
 import React, { useRef, Fragment } from "react";
-import { useAnimation, useWindowSize, getRandomRange } from "./utility";
+import { useAnimation, useWindowSize, getRandomRange } from "../utility";
 
 interface IProps {
   backgroundColor?: string;
