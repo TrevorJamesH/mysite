@@ -29,7 +29,7 @@ const links: Link[] = [
   {
     name: "github",
     icon: github,
-    url: "https://github.com/TrevorJamesH/mysite/blob/main/src/Background.tsx",
+    url: "https://github.com/TrevorJamesH/mysite/blob/main/src/HireMe/Background.tsx",
   },
   {
     name: "codewars",
