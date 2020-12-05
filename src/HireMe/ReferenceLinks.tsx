@@ -43,7 +43,7 @@ const links: Link[] = [
   },
 ];
 
-const Link: React.FC<Link> = (link) => {
+const ReferenceLink: React.FC<Link> = (link) => {
   const { name, icon, url, download } = link;
   return (
     <a href={url} target="_blank" rel="noopener noreferrer" download={download}>
@@ -59,7 +59,7 @@ const Link: React.FC<Link> = (link) => {
   );
 };
 
-const Links = () => {
+const ReferenceLinks = () => {
   return (
     <div
       style={{
@@ -73,10 +73,10 @@ const Links = () => {
       }}
     >
       {links.map((link) => (
-        <Link {...link} />
+        <ReferenceLink {...link} />
       ))}
     </div>
   );
 };
 
-export default Links;
+export default ReferenceLinks;
