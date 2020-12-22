@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 
 /* ===utility functions=== */
 
@@ -28,19 +28,34 @@ export function useAnimation(drawFrame: () => void, fps?: number) {
   }, []);
 }
 
+export function useDebounce(callback: () => void, pauseTime: number) {
+  const timeout = useRef<number | null>(null)
+
+  return () => {
+    if (timeout.current) {
+      clearTimeout(timeout.current)
+    }
+    timeout.current = window.setTimeout(callback, pauseTime)
+  }
+}
+
 export function useWindowSize() {
-  const [{ width, height }, resize] = useState({
+  const [{ width, height }, setSize] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
   });
+
+  const resize = useCallback(() => setSize({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  }), [])
+
+  const setWindowSize = useDebounce(resize, 50);
+
   useEffect(() => {
-    window.onresize = () =>
-      resize(() => ({
-        height: window.innerHeight,
-        width: window.innerWidth,
-      }));
+    window.addEventListener('resize', setWindowSize);
     return () => {
-      window.onresize = () => { };
+      window.removeEventListener('resize', setWindowSize)
     };
   }, []);
   return { width, height };
