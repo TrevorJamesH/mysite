@@ -2,7 +2,7 @@ import React from "react";
 import codewars from "../Icons/codewars.svg";
 import github from "../Icons/github.svg";
 import linkedin from "../Icons/linkedin.svg";
-import resume from "../Icons/resume.svg";
+// import resume from "../Icons/resume.svg";
 import stackoverflow from "../Icons/stackoverflow.svg";
 
 type Link = {
@@ -14,13 +14,13 @@ type Link = {
 };
 
 const links: Link[] = [
-  {
-    name: "resume",
-    icon: resume,
-    url:
-      "/Resume/Trevor_Hewitt_-_Full-Stack_Developer_-_Front-End_Engineer.pdf",
-    download: true,
-  },
+  // {
+  //   name: "resume",
+  //   icon: resume,
+  //   url:
+  //     "/Resume/Trevor_Hewitt_-_Full-Stack_Developer_-_Front-End_Engineer.pdf",
+  //   download: true,
+  // },
   {
     name: "linkedin",
     icon: linkedin,
