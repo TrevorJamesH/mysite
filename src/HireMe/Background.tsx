@@ -2,13 +2,13 @@ import React, { useRef, Fragment } from "react";
 import { useAnimation, useWindowSize, getRandomRange } from "../utility";
 
 const initialOpacity = 0.2;
-const shrinkRate = 0.005;
 interface IProps {
   backgroundColor?: string;
   spriteColor?: string | string[];
   spriteCount?: number;
   spriteSize?: number;
   speed?: number;
+  length?: number;
 }
 
 const Background: React.FC<IProps> = (props) => {
@@ -17,13 +17,14 @@ const Background: React.FC<IProps> = (props) => {
     spriteColor: color = "white",
     spriteCount: count = 10,
     spriteSize: size = 10,
-    speed,
+    speed = 10,
+    length = 40,
   } = props;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { width, height } = useWindowSize();
   const sprites = useRef<Sprites>(
-    generateSprites({ count, size, color, speed })
+    generateSprites({ count, size, color, speed, length })
   );
 
   useAnimation(() => {
@@ -75,6 +76,7 @@ interface Sprite {
   opacity: number;
   offset?: number;
   tail?: Sprites;
+  length: number;
 }
 
 type Sprites = Sprite[];
@@ -82,23 +84,24 @@ type Sprites = Sprite[];
 const xWays: Array<Direction> = ["left", "right"];
 const yWays: Array<Direction> = ["up", "down"];
 
-type SpriteParams = Partial<Pick<Sprite, "speed" | "size" | "color">>;
+type SpriteParams = Pick<Sprite, "speed" | "size" | "color"| "length">;
 
 function generateSprite({
   color = "white",
   size = 10,
   speed = 10,
-}: SpriteParams = {}): Sprite {
+  length
+}: SpriteParams): Sprite {
   const x = getRandomRange(0, window.innerWidth);
   const y = getRandomRange(0, window.innerHeight);
   const direction = directions[getRandomRange(0, directions.length - 1)];
-  const sprite = { coords: { x, y }, direction, color, speed, size, opacity: initialOpacity };
+  const sprite = { coords: { x, y }, direction, color, speed, size, opacity: initialOpacity, length };
   const spriteWithTail = generateTail(sprite)
   return spriteWithTail;
 }
 
 function generateTail(sprite: Sprite){
-  const tailLength = (initialOpacity / shrinkRate) - 1
+  const tailLength = sprite.length - 1
   let spriteWithTail = sprite
   while((spriteWithTail.tail?.length || 0) < tailLength){
     spriteWithTail = move(spriteWithTail)
@@ -109,9 +112,10 @@ function generateTail(sprite: Sprite){
 // TODO: figure out how to extend this from SpriteParams
 type SpritesParams = {
   count?: number;
-  color?: string | string[];
-  speed?: number;
-  size?: number;
+  color: string | string[];
+  speed: number;
+  size: number;
+  length: number;
 };
 
 function generateSprites(params: SpritesParams): Sprites {
@@ -168,6 +172,7 @@ const movers: Record<Direction, Mover> = {
 
 function updateTail(sprite: Sprite): Sprites {
   const { tail = [], ...restOfSprite } = sprite;
+  const shrinkRate = initialOpacity / sprite.length
   const newTail = [restOfSprite].concat(tail).map((tailNode) => {
     const { size, offset = 0, opacity } = tailNode;
     return {

@@ -22,6 +22,7 @@ const HireMe = () => {
       spriteCount={spriteColors.length * 2}
       spriteSize={10}
       speed={10}
+      length={40}
     >
       <div
         style={{
