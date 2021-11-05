@@ -6,10 +6,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/About">
+        <Route path="/about-me">
           <About />
         </Route>
-        <Redirect to={"/About"} />
+        <Redirect to={"/about-me"} />
       </Switch>
     </Router>
   );
