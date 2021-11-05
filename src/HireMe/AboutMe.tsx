@@ -20,11 +20,11 @@ const AboutMe = () => {
       }}
     >
       {aboutMe.map((section) => (
-        <React.Fragment>
+        <React.Fragment key={section.header}>
           <h3 style={{ color: "#9AA0B3" }}>{section.header}</h3>
           <br />
           {section.body.map((paragraph) => (
-            <React.Fragment>
+            <React.Fragment key={paragraph}>
               <p style={{ color: "#9AA0B3" }}>{paragraph}</p>
               <br />
             </React.Fragment>

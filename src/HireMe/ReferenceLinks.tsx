@@ -65,7 +65,7 @@ const ReferenceLinks = () => {
       }}
     >
       {links.map((link) => (
-        <ReferenceLink {...link} />
+        <ReferenceLink {...link} key={link.name}/>
       ))}
     </div>
   );
