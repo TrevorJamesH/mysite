@@ -129,7 +129,7 @@ function updateTail(sprite: Sprite): Sprites {
   return newTail.filter((tailNode) => tailNode.opacity > 0);
 }
 
-export function moveSprite(sprite: Sprite): Sprite {
+function moveSprite(sprite: Sprite): Sprite {
   const { direction, speed, size, coords } = sprite;
   return {
     ...sprite,
@@ -138,6 +138,8 @@ export function moveSprite(sprite: Sprite): Sprite {
     direction: maybeTurn(direction),
   };
 }
+
+export const moveSprites = (sprites: Sprites): Sprites => sprites.map(sprite => moveSprite(sprite))
 
 function drawSprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
   const {

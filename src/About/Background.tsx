@@ -1,5 +1,5 @@
 import React, { useRef, Fragment } from "react";
-import { drawSprites, generateSprites, moveSprite, Sprites } from "../Sprites";
+import { drawSprites, generateSprites, moveSprites, Sprites } from "../Sprites";
 import { useAnimation, useWindowSize } from "../utility";
 
 interface IProps {
@@ -31,7 +31,7 @@ const Background: React.FC<IProps> = (props) => {
 
   useAnimation(() => {
     if(canvasRef.current && sprites.current){
-      sprites.current = sprites.current.map((sprite) => moveSprite(sprite));
+      sprites.current = moveSprites(sprites.current)
       drawSprites(canvasRef.current, sprites.current, backgroundColor)
     }
   }, 60);
