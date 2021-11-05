@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import HireMe from "./HireMe";
+import About from "./About";
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/HireMe">
-          <HireMe />
+        <Route path="/About">
+          <About />
         </Route>
-        <Redirect to={"/HireMe"} />
+        <Redirect to={"/About"} />
       </Switch>
     </Router>
   );
