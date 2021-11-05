@@ -1,6 +1,8 @@
 import React, { useRef, Fragment } from "react";
 import { useAnimation, useWindowSize, getRandomRange } from "../utility";
 
+const initialOpacity = 0.2;
+const shrinkRate = 0.005;
 interface IProps {
   backgroundColor?: string;
   spriteColor?: string | string[];
@@ -90,8 +92,18 @@ function generateSprite({
   const x = getRandomRange(0, window.innerWidth);
   const y = getRandomRange(0, window.innerHeight);
   const direction = directions[getRandomRange(0, directions.length - 1)];
-  const opacity = 0.2;
-  return { coords: { x, y }, direction, color, speed, size, opacity };
+  const sprite = { coords: { x, y }, direction, color, speed, size, opacity: initialOpacity };
+  const spriteWithTail = generateTail(sprite)
+  return spriteWithTail;
+}
+
+function generateTail(sprite: Sprite){
+  const tailLength = (initialOpacity / shrinkRate) - 1
+  let spriteWithTail = sprite
+  while((spriteWithTail.tail?.length || 0) < tailLength){
+    spriteWithTail = move(spriteWithTail)
+  }
+  return spriteWithTail
 }
 
 // TODO: figure out how to extend this from SpriteParams
@@ -154,7 +166,6 @@ const movers: Record<Direction, Mover> = {
   },
 };
 
-const shrinkRate = 0.005;
 function updateTail(sprite: Sprite): Sprites {
   const { tail = [], ...restOfSprite } = sprite;
   const newTail = [restOfSprite].concat(tail).map((tailNode) => {
