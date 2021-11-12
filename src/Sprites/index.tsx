@@ -8,6 +8,11 @@ export interface Coords {
   y: number;
 }
 
+export interface Size {
+  height: number,
+  width: number,
+}
+
 export interface Sprite {
   coords: Coords;
   direction: Direction;
@@ -25,14 +30,15 @@ export type Sprites = Sprite[];
 
 export type SpritesParams = {
   count?: number;
-  color: string | string[];
-  speed: number;
+  color?: string | string[];
+  speed?: number;
   size: number;
   length: number;
-  initialOpacity: number;
+  initialOpacity?: number;
+  canvasSize: Size;
 };
 
-export type SpriteParams = Pick<Sprite, "speed" | "size" | "color"| "length" | "initialOpacity">;
+export type SpriteParams = Partial<Pick<Sprite, "speed" | "size" | "color"| "length" | "initialOpacity">> & {canvasSize: Size};
 
 const xWays: Array<Direction> = ["left", "right"];
 const yWays: Array<Direction> = ["up", "down"];
@@ -41,19 +47,19 @@ function generateSprite({
   color = "white",
   size = 10,
   speed = 10,
-  length,
-  initialOpacity,
+  length = 40,
+  initialOpacity = .2,
+  canvasSize
 }: SpriteParams): Sprite {
-  const x = getRandomRange(0, window.innerWidth);
-  const y = getRandomRange(0, window.innerHeight);
+  const x = getRandomRange(0, canvasSize.width);
+  const y = getRandomRange(0, canvasSize.height);
   const direction = directions[getRandomRange(0, directions.length - 1)];
   const sprite = { coords: { x, y }, direction, color, speed, size, opacity: initialOpacity, initialOpacity, length };
-  const spriteWithTail = generateTail(sprite)
+  const spriteWithTail = generateTail(sprite, canvasSize)
   return spriteWithTail;
 }
 
-export function generateSprites(params: SpritesParams): Sprites {
-  const { count, color, ...spriteParams } = params;
+export function generateSprites({ count = 10, color = 'white', ...spriteParams }: SpritesParams): Sprites {
   return new Array(count).fill(null).map((n, index) => {
     const spriteColor = Array.isArray(color)
       ? color[index % color.length]
@@ -62,11 +68,11 @@ export function generateSprites(params: SpritesParams): Sprites {
   });
 }
 
-function generateTail(sprite: Sprite){
+function generateTail(sprite: Sprite, canvasSize: Size){
   const tailLength = sprite.length - 1
   let spriteWithTail = sprite
   while((spriteWithTail.tail?.length || 0) < tailLength){
-    spriteWithTail = moveSprite(spriteWithTail)
+    spriteWithTail = moveSprite(spriteWithTail, canvasSize)
   }
   return spriteWithTail
 }
@@ -85,28 +91,28 @@ function maybeTurn(direction: Direction): Direction {
   return direction;
 }
 
-export type Mover = (distance: number, size: number, coords: Coords) => Coords;
+export type Mover = (distance: number, size: number, coords: Coords, canvasSize: Size) => Coords;
 const movers: Record<Direction, Mover> = {
-  up: (distance, size, { x, y }) => {
-    if (y > window.innerHeight + size) {
+  up: (distance, size, { x, y }, canvasSize) => {
+    if (y > canvasSize.height + size) {
       return { x, y: 0 };
     }
     return { x, y: y + distance };
   },
-  down: (distance, size, { x, y }) => {
+  down: (distance, size, { x, y }, canvasSize) => {
     if (y < 0) {
-      return { x, y: window.innerHeight + size };
+      return { x, y: canvasSize.height + size };
     }
     return { x, y: y - distance };
   },
-  left: (distance, size, { x, y }) => {
+  left: (distance, size, { x, y }, canvasSize) => {
     if (x < 0) {
-      return { x: window.innerWidth + size, y };
+      return { x: canvasSize.width + size, y };
     }
     return { x: x - distance, y };
   },
-  right: (distance, size, { x, y }) => {
-    if (x > window.innerWidth + size) {
+  right: (distance, size, { x, y }, canvasSize) => {
+    if (x > canvasSize.width + size) {
       return { x: 0, y };
     }
     return { x: x + distance, y };
@@ -129,17 +135,17 @@ function updateTail(sprite: Sprite): Sprites {
   return newTail.filter((tailNode) => tailNode.opacity > 0);
 }
 
-function moveSprite(sprite: Sprite): Sprite {
+function moveSprite(sprite: Sprite, canvasSize: Size): Sprite {
   const { direction, speed, size, coords } = sprite;
   return {
     ...sprite,
     tail: updateTail(sprite),
-    coords: movers[direction](speed, size, coords),
+    coords: movers[direction](speed, size, coords, canvasSize),
     direction: maybeTurn(direction),
   };
 }
 
-export const moveSprites = (sprites: Sprites): Sprites => sprites.map(sprite => moveSprite(sprite))
+export const moveSprites = (sprites: Sprites, canvasSize: Size): Sprites => sprites.map(sprite => moveSprite(sprite, canvasSize))
 
 function drawSprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
   const {
