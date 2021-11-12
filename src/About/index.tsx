@@ -1,5 +1,5 @@
 import React from 'react'
-import { themeColors } from '../constants'
+import { themeBackgroundColor, themeColors } from '../constants'
 import AboutMe from './AboutMe'
 import Background from './Background'
 import ReferenceLinks from './ReferenceLinks'
@@ -7,7 +7,7 @@ import ReferenceLinks from './ReferenceLinks'
 const HireMe = () => {
   return (
     <Background
-      backgroundColor={"#1E2128"}
+      backgroundColor={themeBackgroundColor}
       spriteColor={themeColors}
       spriteCount={themeColors.length * 2}
       spriteSize={10}

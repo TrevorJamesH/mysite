@@ -1,5 +1,7 @@
 export const faviconSize = {height: 16, width: 16}
 
+export const themeBackgroundColor = "#1E2128"
+
 export const themeColors = [
   "#7CBD5C",
   "#CF864A",

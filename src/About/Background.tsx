@@ -14,9 +14,9 @@ interface IProps {
 
 const Background: React.FC<IProps> = (props) => {
   const {
-    backgroundColor = "black",
-    spriteColor: color = "white",
-    spriteCount: count = 10,
+    backgroundColor,
+    spriteColor: color,
+    spriteCount: count,
     spriteSize: size = 10,
     speed = 10,
     length = 40,

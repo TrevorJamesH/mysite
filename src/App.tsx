@@ -9,7 +9,7 @@ function App() {
   const favicon: any = window.document.querySelector("link[rel*='icon']")!
   const canvasRef = useRef<HTMLCanvasElement>(document.createElement("CANVAS") as HTMLCanvasElement);
   const sprites = useRef<Sprites>(
-    generateSprites({ count: themeColors.length, color: themeColors, size: 2, length: 20, speed: .5, canvasSize: faviconSize})
+    generateSprites({ count: themeColors.length, color: themeColors, size: 2, length: 15, speed: 1, canvasSize: faviconSize})
   );
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function App() {
       drawSprites(canvasRef.current, sprites.current)
       favicon.href = canvasRef.current.toDataURL('image/png');
     }
-  }, 60);
+  }, 10);
   
   return (
     <> 
