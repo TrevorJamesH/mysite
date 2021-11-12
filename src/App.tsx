@@ -13,7 +13,6 @@ function App() {
   );
 
   useEffect(() => {
-    console.log('canvasRef',canvasRef.current)
     canvasRef.current.height = faviconSize.height
     canvasRef.current.width = faviconSize.width
   },[])
