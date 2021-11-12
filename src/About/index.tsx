@@ -1,25 +1,15 @@
 import React from 'react'
+import { themeColors } from '../constants'
 import AboutMe from './AboutMe'
 import Background from './Background'
 import ReferenceLinks from './ReferenceLinks'
-
-const spriteColors = [
-  "#7CBD5C",
-  "#CF864A",
-  "#C653DC",
-  "#E5B35D",
-  "#3B9EF2",
-  "#25ABB7",
-  "#E84A5F",
-  "#9AA0B3",
-];
 
 const HireMe = () => {
   return (
     <Background
       backgroundColor={"#1E2128"}
-      spriteColor={spriteColors}
-      spriteCount={spriteColors.length * 2}
+      spriteColor={themeColors}
+      spriteCount={themeColors.length * 2}
       spriteSize={10}
       speed={10}
       length={40}

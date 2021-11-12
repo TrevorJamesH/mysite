@@ -24,14 +24,14 @@ const Background: React.FC<IProps> = (props) => {
   } = props;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { width, height } = useWindowSize();
+  const windowSize = useWindowSize();
   const sprites = useRef<Sprites>(
-    generateSprites({ count, size, color, speed, length, initialOpacity})
+    generateSprites({ count, size, color, speed, length, initialOpacity, canvasSize: windowSize})
   );
 
   useAnimation(() => {
     if(canvasRef.current && sprites.current){
-      sprites.current = moveSprites(sprites.current)
+      sprites.current = moveSprites(sprites.current, windowSize)
       drawSprites(canvasRef.current, sprites.current, backgroundColor)
     }
   }, 60);
@@ -41,8 +41,8 @@ const Background: React.FC<IProps> = (props) => {
       <canvas
         style={{ position: "fixed" }}
         ref={canvasRef}
-        width={width}
-        height={height}
+        width={windowSize.width}
+        height={windowSize.height}
       />
       <div
         style={{
