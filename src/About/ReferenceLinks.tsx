@@ -55,18 +55,20 @@ const ReferenceLinks = () => {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        position: "absolute",
-        bottom: "10px",
-        left: "0px",
-        width: "100%",
+        margin: "0px -20px",
       }}
     >
-      {links.map((link) => (
-        <ReferenceLink {...link} key={link.name} />
-      ))}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
+        {links.map((link) => (
+          <ReferenceLink {...link} key={link.name} />
+        ))}
+      </div>
     </div>
   );
 };

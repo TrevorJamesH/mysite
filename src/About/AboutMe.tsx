@@ -1,4 +1,5 @@
 import React from "react";
+import ReferenceLinks from "./ReferenceLinks";
 
 const aboutMe = [
   {
@@ -29,6 +30,7 @@ const AboutMe = () => {
               <br />
             </React.Fragment>
           ))}
+          <ReferenceLinks />
         </React.Fragment>
       ))}
     </div>
