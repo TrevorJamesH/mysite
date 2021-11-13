@@ -1,8 +1,8 @@
-import React from 'react'
-import { themeBackgroundColor, themeColors } from '../constants'
-import AboutMe from './AboutMe'
-import Background from './Background'
-import ReferenceLinks from './ReferenceLinks'
+import React from "react";
+import { themeBackgroundColor, themeColors } from "../constants";
+import AboutMe from "./AboutMe";
+import Background from "./Background";
+import ReferenceLinks from "./ReferenceLinks";
 
 const HireMe = () => {
   return (
@@ -35,7 +35,7 @@ const HireMe = () => {
         </div>
       </div>
     </Background>
-  )
-}
+  );
+};
 
-export default HireMe
+export default HireMe;

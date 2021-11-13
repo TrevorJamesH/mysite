@@ -7,7 +7,7 @@ export function getRandomRange(min: number, max: number): number {
 }
 
 export function roundTo(number: number, round: number): number {
-  return Math.round(number/round) * round
+  return Math.round(number / round) * round;
 }
 
 /* ===custom hooks=== */
@@ -24,7 +24,7 @@ export function useAnimation(drawFrame: () => void, fps?: number) {
       lastRender.current = new Date().getTime();
     }
     request.current = requestAnimationFrame(animate);
-  },[drawFrame, waitTime]);
+  }, [drawFrame, waitTime]);
 
   useEffect(() => {
     request.current = requestAnimationFrame(animate);
@@ -44,7 +44,7 @@ export function useWindowSize() {
         width: window.innerWidth,
       }));
     return () => {
-      window.onresize = () => { };
+      window.onresize = () => {};
     };
   }, []);
   return { width, height };

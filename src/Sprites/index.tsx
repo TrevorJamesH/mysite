@@ -9,8 +9,8 @@ export interface Coords {
 }
 
 export interface Size {
-  height: number,
-  width: number,
+  height: number;
+  width: number;
 }
 
 export interface Sprite {
@@ -38,7 +38,9 @@ export type SpritesParams = {
   canvasSize: Size;
 };
 
-export type SpriteParams = Partial<Pick<Sprite, "speed" | "size" | "color"| "length" | "initialOpacity">> & {canvasSize: Size};
+export type SpriteParams = Partial<
+  Pick<Sprite, "speed" | "size" | "color" | "length" | "initialOpacity">
+> & { canvasSize: Size };
 
 const xWays: Array<Direction> = ["left", "right"];
 const yWays: Array<Direction> = ["up", "down"];
@@ -48,19 +50,32 @@ function generateSprite({
   size = 10,
   speed = 10,
   length = 40,
-  initialOpacity = .2,
-  canvasSize
+  initialOpacity = 0.2,
+  canvasSize,
 }: SpriteParams): Sprite {
   const { height, width } = canvasSize;
   const x = roundTo(getRandomRange(0, width), size);
   const y = roundTo(getRandomRange(0, height), size);
   const direction = directions[getRandomRange(0, directions.length - 1)];
-  const sprite = { coords: { x, y }, direction, color, speed, size, opacity: initialOpacity, initialOpacity, length };
-  const spriteWithTail = generateTail(sprite, canvasSize)
+  const sprite = {
+    coords: { x, y },
+    direction,
+    color,
+    speed,
+    size,
+    opacity: initialOpacity,
+    initialOpacity,
+    length,
+  };
+  const spriteWithTail = generateTail(sprite, canvasSize);
   return spriteWithTail;
 }
 
-export function generateSprites({ count = 10, color = 'white', ...spriteParams }: SpritesParams): Sprites {
+export function generateSprites({
+  count = 10,
+  color = "white",
+  ...spriteParams
+}: SpritesParams): Sprites {
   return new Array(count).fill(null).map((n, index) => {
     const spriteColor = Array.isArray(color)
       ? color[index % color.length]
@@ -69,13 +84,13 @@ export function generateSprites({ count = 10, color = 'white', ...spriteParams }
   });
 }
 
-function generateTail(sprite: Sprite, canvasSize: Size){
-  const tailLength = sprite.length - 1
-  let spriteWithTail = sprite
-  while((spriteWithTail.tail?.length || 0) < tailLength){
-    spriteWithTail = moveSprite(spriteWithTail, canvasSize)
+function generateTail(sprite: Sprite, canvasSize: Size) {
+  const tailLength = sprite.length - 1;
+  let spriteWithTail = sprite;
+  while ((spriteWithTail.tail?.length || 0) < tailLength) {
+    spriteWithTail = moveSprite(spriteWithTail, canvasSize);
   }
-  return spriteWithTail
+  return spriteWithTail;
 }
 
 const turns: Record<Direction, Array<Direction>> = {
@@ -92,7 +107,12 @@ function maybeTurn(direction: Direction): Direction {
   return direction;
 }
 
-export type Mover = (distance: number, size: number, coords: Coords, canvasSize: Size) => Coords;
+export type Mover = (
+  distance: number,
+  size: number,
+  coords: Coords,
+  canvasSize: Size
+) => Coords;
 const movers: Record<Direction, Mover> = {
   up: (distance, size, { x, y }, canvasSize) => {
     if (y > canvasSize.height + size) {
@@ -122,7 +142,7 @@ const movers: Record<Direction, Mover> = {
 
 function updateTail(sprite: Sprite): Sprites {
   const { tail = [], ...restOfSprite } = sprite;
-  const shrinkRate = sprite.initialOpacity / sprite.length
+  const shrinkRate = sprite.initialOpacity / sprite.length;
   const newTail = [restOfSprite].concat(tail).map((tailNode) => {
     const { size, offset = 0, opacity } = tailNode;
     return {
@@ -146,7 +166,8 @@ function moveSprite(sprite: Sprite, canvasSize: Size): Sprite {
   };
 }
 
-export const moveSprites = (sprites: Sprites, canvasSize: Size): Sprites => sprites.map(sprite => moveSprite(sprite, canvasSize))
+export const moveSprites = (sprites: Sprites, canvasSize: Size): Sprites =>
+  sprites.map((sprite) => moveSprite(sprite, canvasSize));
 
 function drawSprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
   const {
@@ -163,11 +184,15 @@ function drawSprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
   tail.forEach((tailNode) => drawSprite(ctx, tailNode));
 }
 
-export const drawSprites = (canvas: HTMLCanvasElement, sprites: Sprites, backgroundColor = 'black') => {
+export const drawSprites = (
+  canvas: HTMLCanvasElement,
+  sprites: Sprites,
+  backgroundColor = "black"
+) => {
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = backgroundColor;
   ctx.globalAlpha = 1;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   sprites.forEach((sprite) => drawSprite(ctx, sprite));
-}
+};

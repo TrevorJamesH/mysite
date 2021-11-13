@@ -20,19 +20,27 @@ const Background: React.FC<IProps> = (props) => {
     spriteSize: size = 10,
     speed = 10,
     length = 40,
-    initialOpacity = .2,
+    initialOpacity = 0.2,
   } = props;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const windowSize = useWindowSize();
   const sprites = useRef<Sprites>(
-    generateSprites({ count, size, color, speed, length, initialOpacity, canvasSize: windowSize})
+    generateSprites({
+      count,
+      size,
+      color,
+      speed,
+      length,
+      initialOpacity,
+      canvasSize: windowSize,
+    })
   );
 
   useAnimation(() => {
-    if(canvasRef.current && sprites.current){
-      sprites.current = moveSprites(sprites.current, windowSize)
-      drawSprites(canvasRef.current, sprites.current, backgroundColor)
+    if (canvasRef.current && sprites.current) {
+      sprites.current = moveSprites(sprites.current, windowSize);
+      drawSprites(canvasRef.current, sprites.current, backgroundColor);
     }
   }, 60);
 
