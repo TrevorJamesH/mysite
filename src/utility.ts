@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 
 /* ===utility functions=== */
 
@@ -14,18 +14,18 @@ export function useAnimation(drawFrame: () => void, fps?: number) {
 
   const waitTime = useMemo(() => fps && 1000 / fps, [fps]);
 
-  const animate = useRef(() => {
+  const animate = useCallback(() => {
     if (!waitTime || new Date().getTime() - lastRender.current > waitTime) {
       drawFrame();
       lastRender.current = new Date().getTime();
     }
-    request.current = requestAnimationFrame(animate.current);
-  });
+    request.current = requestAnimationFrame(animate);
+  },[drawFrame, waitTime]);
 
   useEffect(() => {
-    request.current = requestAnimationFrame(animate.current);
+    request.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(request.current);
-  }, []);
+  }, [animate]);
 }
 
 export function useWindowSize() {
