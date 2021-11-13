@@ -1,6 +1,6 @@
 import React, { useRef, Fragment } from "react";
 import { drawSprites, generateSprites, moveSprites, Sprites } from "../Sprites";
-import { useAnimation, useWindowSize } from "../utility";
+import { useAnimation, useWindowSize } from "../Utility/hooks";
 
 interface IProps {
   backgroundColor?: string;

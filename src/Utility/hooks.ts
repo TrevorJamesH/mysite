@@ -1,16 +1,4 @@
-import { useEffect, useState, useRef, useMemo, useCallback } from "react";
-
-/* ===utility functions=== */
-
-export function getRandomRange(min: number, max: number): number {
-  return Math.round(Math.random() * (max - min) + min);
-}
-
-export function roundTo(number: number, round: number): number {
-  return Math.round(number / round) * round;
-}
-
-/* ===custom hooks=== */
+import { useRef, useMemo, useCallback, useEffect, useState } from "react";
 
 export function useAnimation(drawFrame: () => void, fps?: number) {
   const request = useRef(0);
