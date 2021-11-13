@@ -14,7 +14,7 @@ const AboutMe = () => {
       style={{
         backgroundColor: "black",
         height: "100%",
-        opacity: "75%",
+        opacity: "65%",
         padding: "20px",
         fontFamily: "Roboto",
         borderRadius: "3px",
