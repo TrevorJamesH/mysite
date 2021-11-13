@@ -1,4 +1,4 @@
-import { getRandomRange } from "../utility";
+import { getRandomRange, roundTo } from "../utility";
 
 export const directions = ["up", "down", "left", "right"] as const;
 export type Direction = typeof directions[number];
@@ -51,8 +51,9 @@ function generateSprite({
   initialOpacity = .2,
   canvasSize
 }: SpriteParams): Sprite {
-  const x = getRandomRange(0, canvasSize.width);
-  const y = getRandomRange(0, canvasSize.height);
+  const { height, width } = canvasSize;
+  const x = roundTo(getRandomRange(0, width), size);
+  const y = roundTo(getRandomRange(0, height), size);
   const direction = directions[getRandomRange(0, directions.length - 1)];
   const sprite = { coords: { x, y }, direction, color, speed, size, opacity: initialOpacity, initialOpacity, length };
   const spriteWithTail = generateTail(sprite, canvasSize)
@@ -101,13 +102,13 @@ const movers: Record<Direction, Mover> = {
   },
   down: (distance, size, { x, y }, canvasSize) => {
     if (y < 0) {
-      return { x, y: canvasSize.height + size };
+      return { x, y: roundTo(canvasSize.height, size) + size };
     }
     return { x, y: y - distance };
   },
   left: (distance, size, { x, y }, canvasSize) => {
     if (x < 0) {
-      return { x: canvasSize.width + size, y };
+      return { x: roundTo(canvasSize.width, size) + size, y };
     }
     return { x: x - distance, y };
   },
