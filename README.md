@@ -1,2 +1,3 @@
-# mysite: Brand new personal website
-wip
+# My professional calling card
+
+TrevorHewitt.io
